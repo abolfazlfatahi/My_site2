@@ -1,0 +1,1319 @@
+<!doctype html>
+
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="وب‌سایت شخصی ابوالفضل فتاحی | کامپیوتر، برنامه‌نویسی و هوش مصنوعی">
+<title>ابوالفضل فتاحی | برنامه‌نویس</title><style>
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800;900&display=swap');
+
+:root{
+ --bg:#06080c;--bg-soft:#0a0d12;--panel:#0d1118;--panel2:#10151d;
+ --white:#f6f7f9;--text:#e7eaf0;--muted:#8d96a5;--dim:#5d6675;
+ --border:rgba(255,255,255,.075);--border2:rgba(255,255,255,.13);
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+
+html{scroll-behavior:smooth}
+
+body{
+ font-family:Vazirmatn,system-ui,sans-serif;
+ color:var(--text);
+ background:var(--bg);
+ overflow-x:hidden;
+ line-height:1.7;
+}
+
+body:before{
+ content:"";
+ position:fixed;
+ inset:0;
+ pointer-events:none;
+ opacity:.18;
+ background-image:
+   linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
+   linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+ background-size:52px 52px;
+ mask-image:linear-gradient(#000,transparent 90%);
+}
+
+body:after{
+ content:"";
+ position:fixed;
+ width:600px;
+ height:600px;
+ left:-250px;
+ top:20%;
+ border-radius:50%;
+ background:rgba(255,255,255,.018);
+ filter:blur(90px);
+ pointer-events:none;
+}
+
+a{color:inherit}
+
+.wrap{
+ width:min(1120px,91%);
+ margin:auto
+}
+
+nav{
+ position:fixed;
+ z-index:50;
+ top:16px;
+ left:50%;
+ transform:translateX(-50%);
+ width:min(1080px,91%);
+ height:62px;
+ padding:7px 9px;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ border:1px solid var(--border);
+ border-radius:18px;
+ background:rgba(6,8,12,.78);
+ backdrop-filter:blur(22px);
+ box-shadow:0 20px 70px rgba(0,0,0,.32)
+}
+
+/* نام انگلیسی همیشه وسط نوار بالا */
+.top-center-name{
+ position:absolute;
+ left:50%;
+ transform:translateX(-50%);
+ color:#dfe3e8;
+ font-size:13px;
+ font-weight:650;
+ letter-spacing:.3px;
+ white-space:nowrap;
+ pointer-events:none;
+}
+
+.brand{
+ display:flex;
+ align-items:center;
+ gap:10px;
+ text-decoration:none
+}
+
+.brand-mark{
+ width:39px;
+ height:39px;
+ border-radius:11px;
+ display:grid;
+ place-items:center;
+ background:#f1f3f6;
+ color:#080a0e;
+ font-size:12px;
+ font-weight:900;
+ letter-spacing:-.5px
+}
+
+.brand-name{
+ font-size:14px;
+ font-weight:750;
+ letter-spacing:-.2px;
+ color:#fff
+}
+
+.links{
+ display:flex;
+ gap:3px
+}
+
+.links a{
+ text-decoration:none;
+ color:#8992a0;
+ font-size:12px;
+ padding:9px 12px;
+ border-radius:10px;
+ transition:.2s
+}
+
+.links a:hover{
+ color:#fff;
+ background:rgba(255,255,255,.05)
+}
+
+/* Language control */
+.lang-wrap{
+ position:absolute;
+ left:9px;
+ top:10px;
+ z-index:120;
+}
+.lang{
+ position:relative;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ gap:7px;
+ min-width:112px;
+ height:42px;
+ padding:0 15px;
+ border:1px solid rgba(255,255,255,.13);
+ border-radius:13px;
+ background:rgba(14,18,25,.82);
+ color:#f4f6f8;
+ backdrop-filter:blur(18px);
+ -webkit-backdrop-filter:blur(18px);
+ box-shadow:0 12px 35px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.06);
+ font:700 11px Vazirmatn;
+ letter-spacing:.4px;
+ cursor:pointer;
+ transition:.25s ease;
+}
+.lang:hover{
+ transform:translateY(-2px);
+ background:rgba(255,255,255,.09);
+ border-color:rgba(255,255,255,.24);
+}
+.lang-chevron{font-size:11px;opacity:.65;transition:.25s ease}
+.lang-wrap.open .lang-chevron{transform:rotate(180deg)}
+.lang-menu{
+ position:absolute;
+ top:50px;
+ left:0;
+ min-width:132px;
+ padding:6px;
+ border:1px solid rgba(255,255,255,.12);
+ border-radius:14px;
+ background:rgba(9,12,18,.94);
+ backdrop-filter:blur(20px);
+ -webkit-backdrop-filter:blur(20px);
+ box-shadow:0 18px 50px rgba(0,0,0,.42);
+ opacity:0;
+ visibility:hidden;
+ transform:translateY(-6px) scale(.98);
+ transform-origin:top left;
+ transition:.2s ease;
+}
+.lang-wrap.open .lang-menu{opacity:1;visibility:visible;transform:translateY(0) scale(1)}
+.lang-option{
+ width:100%;
+ border:0;
+ background:transparent;
+ color:#aeb6c2;
+ padding:10px 11px;
+ border-radius:9px;
+ text-align:right;
+ font:600 11px Vazirmatn;
+ cursor:pointer;
+ transition:.18s ease;
+}
+.lang-option:hover{background:rgba(255,255,255,.07);color:#fff}
+.lang-option.active{color:#fff;background:rgba(255,255,255,.055)}
+
+/* Top profile */
+.top-profile{
+ position:absolute;
+ right:9px;
+ top:7px;
+ width:48px;
+ height:48px;
+ flex:0 0 48px;
+ border-radius:50%;
+ padding:2px;
+ display:block;
+ overflow:hidden;
+ border:1px solid rgba(255,255,255,.18);
+ background:rgba(255,255,255,.05);
+ box-shadow:0 10px 30px rgba(0,0,0,.35),0 0 0 4px rgba(255,255,255,.025);
+ transition:.25s ease;
+}
+.top-profile:hover{transform:scale(1.06);border-color:rgba(255,255,255,.34);box-shadow:0 14px 38px rgba(0,0,0,.42),0 0 0 5px rgba(255,255,255,.035)}
+.top-profile img{width:100%;height:100%;display:block;object-fit:cover;border-radius:50%}
+
+ .hero{
+ min-height:100vh; padding:142px 0 78px; display:flex; align-items:center; position:relative; overflow:hidden
+}
+.hero-grid{display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;z-index:1;width:100%;text-align:center}
+.hero-grid>div:first-child{width:min(860px,100%);display:flex;flex-direction:column;align-items:center}
+.eyebrow{display:inline-flex;gap:8px;align-items:center;padding:7px 11px;border:1px solid var(--border);background:rgba(255,255,255,.025);border-radius:999px;color:#8992a0;font-size:10px;letter-spacing:1.3px;margin-bottom:18px}
+.pulse{width:6px;height:6px;border-radius:50%;background:#cbd0d8;box-shadow:0 0 12px rgba(255,255,255,.45)}
+
+h1{font-size:clamp(42px,4.7vw,58px);line-height:1.08;letter-spacing:-2.2px;color:#fff;font-weight:500;position:relative;display:block;max-width:100%;margin:0;text-align:center}
+.hero-title{display:block;position:relative;width:max-content;max-width:100%;margin-inline:auto}
+.hero-title strong{font-weight:500;background:linear-gradient(180deg,#fff 10%,#b9c0ca 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero-title:after{display:none}
+.hero-subline{display:flex;align-items:center;justify-content:center;gap:9px;margin-top:10px;color:#697382;font-size:9px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase}
+.hero-subline:before{content:"";width:25px;height:1px;background:linear-gradient(90deg,rgba(255,255,255,.02),rgba(255,255,255,.24))}
+.hero-desc{max-width:650px;color:#969fac;font-size:14px;line-height:2.05;margin:19px auto 20px;text-align:center}
+.hero-meta{display:flex;align-items:center;justify-content:center;gap:24px;margin:0 0 25px;width:auto;max-width:100%;border:0}
+.hero-meta-item{min-width:0;padding:0;border:0;border-radius:0;background:transparent;box-shadow:none;display:inline-flex;align-items:center;position:relative}
+.hero-meta-item:not(:last-child):after{content:"";position:absolute;right:-13px;width:3px;height:3px;border-radius:50%;background:#737b87;opacity:.65}
+.hero-meta-item small{display:none}
+.hero-meta-item strong{color:#aeb6c2;font-size:10px;font-weight:700;letter-spacing:1.1px;text-transform:uppercase;transition:color .25s ease}
+.hero-meta-item:hover strong{color:#f1f3f6}
+.actions{display:flex;gap:11px;flex-wrap:wrap;justify-content:center}
+.btn{position:relative;min-width:158px;min-height:53px;display:inline-flex;align-items:center;justify-content:center;gap:0;text-decoration:none;border:1px solid rgba(255,255,255,.11);border-radius:15px;padding:8px 48px 8px 16px;font-size:11px;font-weight:800;transition:transform .25s ease,border-color .25s ease,background .25s ease,box-shadow .25s ease;text-align:center}
+.btn-arrow{position:absolute;right:9px;width:31px;height:31px;display:grid;place-items:center;border-radius:10px;font-size:13px;transition:transform .25s ease,background .25s ease}
+[dir="rtl"] .btn{padding:8px 16px 8px 48px}
+[dir="rtl"] .btn-arrow{right:auto;left:9px}
+.btn.primary{background:#f0f2f5;color:#07090c;border-color:#f0f2f5;box-shadow:0 10px 30px rgba(0,0,0,.18)}
+.btn.primary .btn-arrow{background:#0a0d12;color:#f0f2f5}
+.btn.secondary{background:rgba(255,255,255,.018);color:#e2e6eb;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.btn.secondary .btn-arrow{background:rgba(255,255,255,.055);color:#e5e8ed}
+.btn:hover{transform:translateY(-3px);border-color:rgba(255,255,255,.22);box-shadow:0 15px 34px rgba(0,0,0,.24)}
+.btn:hover .btn-arrow{transform:translate(2px,-2px)}
+
+.hero-visual{position:relative;width:min(720px,92vw);height:116px;margin-top:30px;display:flex;align-items:center;justify-content:center}
+.hero-visual:before{content:"";position:absolute;left:0;right:0;top:50%;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.035) 12%,rgba(255,255,255,.13) 50%,rgba(255,255,255,.035) 88%,transparent);transform:translateY(-50%)}
+.hero-visual:after{content:"AI  /  PYTHON  /  BUILD  /  FUTURE";position:absolute;bottom:2px;color:#4f5865;font:700 7px ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:2.4px}
+.future-signal{position:relative;width:250px;height:70px;display:flex;align-items:center;justify-content:center;isolation:isolate}
+.future-signal:before,.future-signal:after{content:"";position:absolute;border:1px solid rgba(255,255,255,.075);border-radius:50%;animation:signalExpand 3.2s ease-out infinite}
+.future-signal:before{width:42px;height:42px}
+.future-signal:after{width:42px;height:42px;animation-delay:1.6s}
+.signal-core{position:relative;width:10px;height:10px;border-radius:50%;background:#e7ebf0;box-shadow:0 0 0 6px rgba(255,255,255,.035),0 0 28px rgba(255,255,255,.35);z-index:2}
+.signal-core:before{content:"";position:absolute;left:50%;top:50%;width:170px;height:1px;transform:translate(-50%,-50%);background:linear-gradient(90deg,transparent,rgba(255,255,255,.16),transparent);animation:signalSweep 2.5s ease-in-out infinite}
+.signal-node{position:absolute;width:4px;height:4px;border-radius:50%;background:#b9c0ca;box-shadow:0 0 12px rgba(255,255,255,.4);animation:nodeFloat 3.5s ease-in-out infinite}
+.signal-node.one{left:32px;top:20px;animation-delay:-.7s}.signal-node.two{right:30px;top:42px;animation-delay:-1.8s}.signal-node.three{left:66px;bottom:13px;animation-delay:-2.6s}
+@keyframes signalExpand{0%{transform:scale(.45);opacity:0}20%{opacity:.8}100%{transform:scale(3.8);opacity:0}}
+@keyframes signalSweep{0%,100%{opacity:.2;transform:translate(-50%,-50%) scaleX(.35)}50%{opacity:1;transform:translate(-50%,-50%) scaleX(1)}}
+@keyframes nodeFloat{0%,100%{transform:translate3d(0,0,0);opacity:.45}50%{transform:translate3d(0,-7px,0);opacity:1}}
+
+.portrait-area{display:none}
+.portrait{display:none}
+
+section{
+ padding:90px 0
+}
+
+.section-head{
+ display:flex;
+ align-items:end;
+ justify-content:space-between;
+ gap:30px;
+ margin-bottom:30px
+}
+
+.kicker{
+ font-size:9px;
+ letter-spacing:2px;
+ color:#697382;
+ margin-bottom:6px
+}
+
+.section-title{
+ font-size:30px;
+ letter-spacing:-1.2px;
+ color:#fff
+}
+
+.section-desc{
+ color:#7e8898;
+ font-size:12px;
+ max-width:510px;
+ line-height:1.9
+}
+
+.about-grid{
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:14px
+}
+
+.panel{
+ background:linear-gradient(
+   145deg,
+   rgba(15,19,27,.92),
+   rgba(9,12,18,.78)
+ );
+ border:1px solid var(--border);
+ border-radius:22px;
+ box-shadow:0 25px 80px rgba(0,0,0,.13)
+}
+
+.about-copy{
+ padding:29px
+}
+
+.about-copy h3{
+ font-size:20px;
+ margin-bottom:10px
+}
+
+.about-copy p{
+ font-size:13px;
+ color:#929cab;
+ line-height:2.05
+}
+
+.quote{
+ margin-top:23px;
+ padding:14px 16px;
+ border-right:2px solid #cbd0d8;
+ color:#c2c8d1;
+ background:rgba(255,255,255,.025);
+ border-radius:10px;
+ font-size:11px
+}
+
+.info-card{
+ padding:14px
+}
+
+.info-grid{
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:9px
+}
+
+.info-item{
+ padding:16px;
+ border:1px solid rgba(255,255,255,.055);
+ background:rgba(255,255,255,.018);
+ border-radius:15px
+}
+
+.info-item small{
+ display:block;
+ color:#697383;
+ font-size:9px;
+ margin-bottom:5px
+}
+
+.info-item strong{
+ font-size:12px;
+ color:#e3e6eb
+}
+
+.cards{
+ display:grid;
+ grid-template-columns:repeat(3,1fr);
+ gap:13px
+}
+
+.skill{
+ padding:24px;
+ min-height:205px;
+ border:1px solid var(--border);
+ border-radius:20px;
+ background:var(--panel);
+ position:relative;
+ overflow:hidden;
+ transition:.28s
+}
+
+.skill:hover{
+ transform:translateY(-5px);
+ border-color:var(--border2);
+ background:#11161e
+}
+
+.skill-num{
+ font-size:10px;
+ color:#5f6978;
+ letter-spacing:1px;
+ margin-bottom:25px
+}
+
+.skill h3{
+ font-size:17px;
+ margin-bottom:8px
+}
+
+.skill p{
+ font-size:12px;
+ color:#7f8998;
+ line-height:1.95
+}
+
+.skill-line{
+ position:absolute;
+ bottom:0;
+ right:0;
+ left:0;
+ height:2px;
+ background:linear-gradient(
+   90deg,
+   transparent,
+   rgba(255,255,255,.14),
+   transparent
+ )
+}
+
+.projects{
+ display:grid;
+ grid-template-columns:1.4fr .6fr;
+ gap:13px
+}
+
+.project-main,
+.project-side{
+ padding:27px
+}
+
+.project-main h3{
+ font-size:21px;
+ margin:9px 0
+}
+
+.project-main p,
+.project-side p{
+ font-size:12px;
+ color:#818b9a;
+ line-height:2
+}
+
+.code{
+ margin-top:23px;
+ border:1px solid rgba(255,255,255,.06);
+ border-radius:14px;
+ padding:17px;
+ background:#070a0f;
+ font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+ font-size:10px;
+ color:#929ba8;
+ direction:ltr;
+ text-align:left
+}
+
+.project-side{
+ display:flex;
+ flex-direction:column;
+ justify-content:space-between
+}
+
+.stat{
+ padding-bottom:18px;
+ margin-bottom:18px;
+ border-bottom:1px solid var(--border)
+}
+
+.stat:last-child{
+ border-bottom:0;
+ margin-bottom:0;
+ padding-bottom:0
+}
+
+.stat b{
+ display:block;
+ font-size:22px;
+ color:#f4f5f7
+}
+
+.stat span{
+ font-size:10px;
+ color:#6e7888
+}
+
+.contact{
+ padding:30px;
+ position:relative;
+ overflow:hidden;
+ background:
+   radial-gradient(circle at 92% 10%,rgba(255,255,255,.045),transparent 27%),
+   linear-gradient(145deg,rgba(16,21,29,.94),rgba(8,11,16,.82));
+}
+.contact:before{
+ content:"";
+ position:absolute;
+ inset:1px;
+ border-radius:21px;
+ border:1px solid rgba(255,255,255,.035);
+ pointer-events:none;
+}
+.contact:after{
+ content:"";
+ position:absolute;
+ width:210px;height:210px;
+ left:-110px;bottom:-130px;
+ border-radius:50%;
+ background:rgba(255,255,255,.022);
+ filter:blur(18px);
+ pointer-events:none;
+}
+.contact-links{
+ display:grid;
+ grid-template-columns:repeat(5,minmax(0,1fr));
+ gap:10px;
+ position:relative;
+ z-index:1;
+}
+.contact-link{
+ position:relative;
+ min-height:88px;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ padding:15px 12px;
+ overflow:hidden;
+ text-decoration:none;
+ border:1px solid rgba(255,255,255,.065);
+ border-radius:15px;
+ background:linear-gradient(160deg,rgba(255,255,255,.035),rgba(255,255,255,.012));
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.03);
+ transition:transform .25s ease,border-color .25s ease,background .25s ease,box-shadow .25s ease;
+}
+.contact-link:before{
+ content:"";
+ position:absolute;
+ left:50%;bottom:-2px;
+ width:38px;height:2px;
+ transform:translateX(-50%) scaleX(.35);
+ border-radius:99px;
+ background:rgba(255,255,255,.5);
+ box-shadow:0 0 18px rgba(255,255,255,.2);
+ opacity:.45;
+ transition:.3s ease;
+}
+.contact-link:hover{
+ transform:translateY(-4px);
+ border-color:rgba(255,255,255,.17);
+ background:linear-gradient(160deg,rgba(255,255,255,.06),rgba(255,255,255,.018));
+ box-shadow:0 14px 30px rgba(0,0,0,.2),inset 0 1px 0 rgba(255,255,255,.04);
+}
+.contact-link:hover:before{transform:translateX(-50%) scaleX(1.8);opacity:1}
+.contact-index{display:none}
+.contact-link small{
+ position:relative;
+ display:block;
+ width:100%;
+ text-align:center;
+ color:#aab2be;
+ font-size:9px;
+ font-weight:800;
+ letter-spacing:1.65px;
+ line-height:1.2;
+ transition:.25s ease;
+}
+.contact-link:hover small{color:#fff;letter-spacing:1.8px}
+.contact-link strong{position:relative;font-size:13px;color:#f1f3f6}
+.contact-arrow{
+ position:absolute;
+ top:10px;right:12px;
+ color:#687281;
+ font-size:12px;
+ transition:.25s ease;
+}
+.contact-link:hover .contact-arrow{transform:translate(2px,-2px);color:#dfe4ea}
+[dir="rtl"] .contact-arrow{right:auto;left:12px}
+[dir="rtl"] .contact-index{display:none}
+
+
+.contact-link span.contact-arrow{line-height:1}
+.contact-link:after{content:"";position:absolute;left:18%;right:18%;top:50%;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.08),transparent);transform:translateY(-50%) scaleX(.35);opacity:.25;transition:.4s ease}
+.contact-link:hover:after{transform:translateY(-50%) scaleX(1);opacity:.7}
+footer{
+ padding:38px 0 55px;
+ text-align:center;
+ color:#566071;
+ border-top:1px solid var(--border);
+ font-size:10px
+}
+
+[dir=ltr] body{
+ text-align:left
+}
+
+[dir=ltr] .quote{
+ border-right:0;
+ border-left:2px solid #cbd0d8
+}
+
+[dir=ltr] .contact-arrow{
+ float:right
+}
+
+[dir=ltr] .brand-name{
+ letter-spacing:0
+}
+
+[dir=ltr] .code{
+ text-align:left
+}
+
+@media(max-width:850px){
+
+ nav{
+  height:58px
+ }
+
+ .links{
+  display:none
+ }
+
+ .top-center-name{
+  font-size:11px;
+ }
+
+ .hero{
+  min-height:auto;
+  padding-top:132px;
+  padding-bottom:80px;
+  align-items:flex-start
+ }
+
+ .hero-grid{
+  gap:0;
+  text-align:center
+ }
+
+ .hero-visual{
+  width:min(620px,94vw);
+  height:100px;
+  margin-top:26px
+ }
+ .future-signal{transform:scale(.86)}
+
+
+ .hero-desc{
+  margin-inline:auto;
+  font-size:14px
+ }
+
+ .actions{
+  justify-content:center
+ }
+
+ .section-head{
+  display:block
+ }
+
+ .section-desc{
+  margin-top:6px
+ }
+
+ .about-grid,
+ .projects,
+ .contact{
+  grid-template-columns:1fr
+ }
+
+ .cards{
+  grid-template-columns:1fr
+ }
+
+ .contact-links{
+  grid-template-columns:repeat(3,minmax(0,1fr));
+ }
+}
+
+@media(max-width:500px){
+
+ .wrap{
+  width:89%
+ }
+
+ .hero{
+  padding-bottom:55px
+ }
+
+ h1{
+  font-size:39px;
+  letter-spacing:-2.3px;
+  line-height:1.08
+ }
+
+ .hero-title:after{display:none}
+
+ .hero-subline{
+  justify-content:center;
+  margin-top:10px
+ }
+
+ .hero-meta{
+  justify-content:center;
+  width:100%;
+  margin-bottom:22px
+ }
+
+ .hero-meta-item{
+  min-width:0;
+  flex:1;
+  padding:8px 9px
+ }
+
+ .btn{
+  min-width:145px;
+  min-height:49px;
+  padding:7px 45px 7px 12px;
+  justify-content:center;
+  text-align:center
+ }
+ [dir="rtl"] .btn{padding:7px 12px 7px 45px}
+ .btn-arrow{right:8px}
+ [dir="rtl"] .btn-arrow{right:auto;left:8px}
+
+ .info-grid{
+  grid-template-columns:1fr
+ }
+
+
+ .section-title{
+  font-size:27px
+ }
+
+ .top-center-name{
+  font-size:10px;
+ }
+}
+
+@media(max-width:850px){
+ .contact-links{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:600px){
+ .contact{padding:20px}
+ .contact-links{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+ .contact-link{min-height:82px;padding:13px 9px;border-radius:14px}
+ .top-profile{width:44px;height:44px;flex-basis:44px}
+ .lang{min-width:100px;height:40px;padding:0 12px}
+ .lang-menu{top:48px;min-width:120px}
+ nav{width:calc(100% - 24px);top:12px}
+}
+
+/* Live focus pill */
+.focus-pill{
+ position:fixed;
+ right:22px;
+ bottom:22px;
+ z-index:99;
+ display:flex;
+ align-items:center;
+ gap:9px;
+ padding:10px 14px;
+ border:1px solid rgba(255,255,255,.09);
+ border-radius:14px;
+ background:rgba(10,13,18,.72);
+ backdrop-filter:blur(16px);
+ -webkit-backdrop-filter:blur(16px);
+ color:#aeb6c2;
+ font:500 10px Vazirmatn;
+ letter-spacing:.4px;
+ box-shadow:0 10px 30px rgba(0,0,0,.25);
+}
+.focus-dot{width:7px;height:7px;border-radius:50%;background:#dfe5ec;box-shadow:0 0 12px rgba(255,255,255,.45);animation:focusPulse 1.8s infinite}
+@keyframes focusPulse{50%{opacity:.35;transform:scale(.72)}}
+[dir="ltr"] .focus-pill{right:auto;left:22px}
+@media(max-width:600px){.focus-pill{right:16px;bottom:16px;padding:9px 11px;font-size:9px}[dir="ltr"] .focus-pill{right:auto;left:16px}}
+
+</style></head>
+
+<body>
+
+<nav>
+
+<div class="lang-wrap" id="langWrap">
+  <button class="lang" id="langBtn" type="button" aria-haspopup="true" aria-expanded="false">
+    <span>Language</span>
+    <span class="lang-chevron">⌄</span>
+  </button>
+  <div class="lang-menu" id="langMenu" role="menu">
+    <button class="lang-option" type="button" data-lang="en" role="menuitem">English</button>
+    <button class="lang-option" type="button" data-lang="fa" role="menuitem">فارسی</button>
+    <button class="lang-option" type="button" data-lang="de" role="menuitem">Deutsch</button>
+    <button class="lang-option" type="button" data-lang="ar" role="menuitem">العربية</button>
+    <button class="lang-option" type="button" data-lang="fr" role="menuitem">Français</button>
+    <button class="lang-option" type="button" data-lang="zh" role="menuitem">中文</button>
+    <button class="lang-option" type="button" data-lang="es" role="menuitem">Español</button>
+  </div>
+</div>
+
+<div class="top-center-name">Abolfazl Fatahi</div>
+
+<a class="top-profile" href="#home" aria-label="Abolfazl Fatahi">
+  <img src="https://cdn.imgurl.ir/uploads/v94027_IMG_20260913_024208_465.jpg" alt="Abolfazl Fatahi">
+</a>
+
+</nav>
+
+<div class="focus-pill" aria-live="polite">
+<span class="focus-dot"></span>
+<span id="focusText" data-fa="در حال ساخت آینده" data-en="BUILDING THE FUTURE" data-de="DIE ZUKUNFT GESTALTEN" data-ar="نبني المستقبل" data-fr="CONSTRUIRE LE FUTUR" data-zh="构建未来" data-es="CONSTRUYENDO EL FUTURO">در حال ساخت آینده</span>
+</div>
+
+<main>
+
+<section class="hero" id="home">
+
+<div class="wrap hero-grid">
+
+<div>
+
+<div class="eyebrow">
+<span class="pulse"></span>
+<span data-fa="COMPUTER · AI · PROGRAMMING"
+data-en="COMPUTER · AI · PROGRAMMING" data-de="COMPUTER · KI · PROGRAMMIERUNG" data-ar="الكمبيوتر · الذكاء الاصطناعي · البرمجة" data-fr="INFORMATIQUE · IA · PROGRAMMATION" data-zh="计算机 · 人工智能 · 编程" data-es="INFORMÁTICA · IA · PROGRAMACIÓN">
+COMPUTER · AI · PROGRAMMING
+</span>
+</div>
+
+<h1>
+<span class="hero-title">
+<strong data-fa="ابوالفضل فتاحی"
+data-en="Abolfazl Fatahi" data-de="Abolfazl Fatahi" data-ar="أبوالفضل فتاحي" data-fr="Abolfazl Fatahi" data-zh="Abolfazl Fatahi" data-es="Abolfazl Fatahi">
+ابوالفضل فتاحی
+</strong>
+</span>
+</h1>
+
+<p class="hero-desc"
+data-fa="دانش‌آموز رشته کامپیوتر و علاقه‌مند به برنامه‌نویسی و هوش مصنوعی. اینجا بخشی از مسیر یادگیری، ساختن و نگاه من به دنیای دیجیتال است."
+data-en="A computer science student interested in programming and artificial intelligence. This is a small part of my journey through learning, building, and exploring the digital world." data-de="Ich bin Schüler der Informatik und interessiere mich für Programmierung und künstliche Intelligenz. Dies ist ein Teil meines Weges durch Lernen, Bauen und die digitale Welt." data-ar="أنا طالب في علوم الحاسوب ومهتم بالبرمجة والذكاء الاصطناعي. هذا جزء من رحلتي في التعلم والبناء واستكشاف العالم الرقمي." data-fr="Je suis étudiant en informatique, passionné par la programmation et l’intelligence artificielle. Voici une partie de mon parcours d’apprentissage, de création et d’exploration du monde numérique." data-zh="我是一名对编程和人工智能感兴趣的计算机专业学生。这是我学习、创造和探索数字世界的一部分历程。" data-es="Soy estudiante de informática interesado en la programación y la inteligencia artificial. Este es un pequeño recorrido por mi aprendizaje, mis proyectos y mi exploración del mundo digital.">
+دانش‌آموز رشته کامپیوتر و علاقه‌مند به برنامه‌نویسی و هوش مصنوعی. اینجا بخشی از مسیر یادگیری، ساختن و نگاه من به دنیای دیجیتال است.
+</p>
+
+<div class="hero-meta">
+<div class="hero-meta-item"><small>01</small><strong data-fa="هوش مصنوعی" data-en="ARTIFICIAL AI" data-de="KÜNSTLICHE INTELLIGENZ" data-ar="الذكاء الاصطناعي" data-fr="INTELLIGENCE ARTIFICIELLE" data-zh="人工智能" data-es="INTELIGENCIA ARTIFICIAL">هوش مصنوعی</strong></div>
+<div class="hero-meta-item"><small>02</small><strong data-fa="پایتون" data-en="PYTHON" data-de="PYTHON" data-ar="بايثون" data-fr="PYTHON" data-zh="Python" data-es="PYTHON">پایتون</strong></div>
+<div class="hero-meta-item"><small>03</small><strong data-fa="ساختن" data-en="BUILDING" data-de="ENTWICKELN" data-ar="البناء" data-fr="CRÉATION" data-zh="构建" data-es="CREAR">ساختن</strong></div>
+</div>
+
+<div class="actions">
+
+<a class="btn primary" href="#about" data-fa="درباره من" data-en="About me" data-de="Über mich" data-ar="عني" data-fr="À propos" data-zh="关于我" data-es="Sobre mí">
+<span data-fa="درباره من" data-en="About me" data-de="Über mich" data-ar="عني" data-fr="À propos" data-zh="关于我" data-es="Sobre mí">درباره من</span><span class="btn-arrow">↓</span>
+</a>
+
+<a class="btn secondary" href="#contact" data-fa="ارتباط با من" data-en="Contact me" data-de="Kontakt" data-ar="تواصل معي" data-fr="Me contacter" data-zh="联系我" data-es="Contacto">
+<span data-fa="ارتباط با من" data-en="Contact me" data-de="Kontakt" data-ar="تواصل معي" data-fr="Me contacter" data-zh="联系我" data-es="Contacto">ارتباط با من</span><span class="btn-arrow">↗</span>
+</a>
+
+</div>
+
+</div>
+
+<div class="hero-visual" aria-hidden="true">
+<div class="future-signal">
+<span class="signal-node one"></span>
+<span class="signal-node two"></span>
+<span class="signal-node three"></span>
+<span class="signal-core"></span>
+</div>
+</div>
+
+
+
+</div>
+
+</section>
+
+<section id="about">
+
+<div class="wrap">
+
+<div class="section-head">
+
+<div>
+<div class="kicker">01 / ABOUT</div>
+
+<h2 class="section-title"
+data-fa="درباره من"
+data-en="About me" data-de="Über mich" data-ar="عني" data-fr="À propos" data-zh="关于我" data-es="Sobre mí">
+درباره من
+</h2>
+
+</div>
+
+<p class="section-desc"
+data-fa="یک معرفی کوتاه، بدون شلوغی و حاشیه."
+data-en="A short introduction, without the clutter." data-de="Eine kurze Vorstellung, ohne unnötigen Ballast." data-ar="مقدمة قصيرة، بدون تعقيد أو مبالغة." data-fr="Une courte présentation, sans superflu." data-zh="简短介绍，不做多余修饰。" data-es="Una breve presentación, sin complicaciones.">
+یک معرفی کوتاه، بدون شلوغی و حاشیه.
+</p>
+
+</div>
+
+<div class="about-grid">
+
+<div class="panel about-copy">
+
+<h3 data-fa="در مسیر ساختن و یادگرفتن"
+data-en="Learning by building" data-de="Lernen durch Bauen" data-ar="التعلم من خلال البناء" data-fr="Apprendre en créant" data-zh="通过实践学习" data-es="Aprender creando">
+در مسیر ساختن و یادگرفتن
+</h3>
+
+<p data-fa="من ابوالفضل فتاحی هستم. در رشته کامپیوتر تحصیل می‌کنم و بیشتر از همه به برنامه‌نویسی و هوش مصنوعی علاقه دارم. دوست دارم ایده‌ها را به پروژه‌های واقعی تبدیل کنم و هر روز چیز تازه‌ای یاد بگیرم."
+data-en="I'm Abolfazl Fatahi. I study computer science and I'm especially interested in programming and artificial intelligence. I enjoy turning ideas into real projects and learning something new every day." data-de="Ich bin Abolfazl Fatahi. Ich studiere Informatik und interessiere mich besonders für Programmierung und künstliche Intelligenz. Ich möchte Ideen in echte Projekte verwandeln und jeden Tag etwas Neues lernen." data-ar="أنا أبوالفضل فتاحي. أدرس علوم الحاسوب وأهتم بشكل خاص بالبرمجة والذكاء الاصطناعي. أحب تحويل الأفكار إلى مشاريع حقيقية وتعلّم شيء جديد كل يوم." data-fr="Je suis Abolfazl Fatahi. J’étudie l’informatique et je m’intéresse particulièrement à la programmation et à l’intelligence artificielle. J’aime transformer les idées en projets réels et apprendre quelque chose de nouveau chaque jour." data-zh="我是 Abolfazl Fatahi。我学习计算机科学，尤其对编程和人工智能感兴趣。我喜欢把想法变成真实项目，每天学习新东西。" data-es="Soy Abolfazl Fatahi. Estudio informática y me interesan especialmente la programación y la inteligencia artificial. Me gusta convertir ideas en proyectos reales y aprender algo nuevo cada día.">
+من ابوالفضل فتاحی هستم. در رشته کامپیوتر تحصیل می‌کنم و بیشتر از همه به برنامه‌نویسی و هوش مصنوعی علاقه دارم. دوست دارم ایده‌ها را به پروژه‌های واقعی تبدیل کنم و هر روز چیز تازه‌ای یاد بگیرم.
+</p>
+
+<div class="quote"
+data-fa="ایده خوب وقتی جذاب‌تر می‌شود که بتوانی آن را بسازی."
+data-en="A good idea becomes more interesting when you can build it." data-de="Eine gute Idee wird interessanter, wenn du sie bauen kannst." data-ar="الفكرة الجيدة تصبح أكثر إثارة عندما تستطيع بناءها." data-fr="Une bonne idée devient plus intéressante quand on peut la créer." data-zh="一个好想法，在你能把它做出来时会更有趣。" data-es="Una buena idea se vuelve más interesante cuando puedes construirla.">
+ایده خوب وقتی جذاب‌تر می‌شود که بتوانی آن را بسازی.
+</div>
+
+</div>
+
+<div class="panel info-card">
+
+<div class="info-grid">
+
+<div class="info-item">
+<small data-fa="نام" data-en="NAME" data-de="NAME" data-ar="الاسم" data-fr="NOM" data-zh="姓名" data-es="NOMBRE">نام</small>
+<strong data-fa="ابوالفضل فتاحی"
+data-en="Abolfazl Fatahi" data-de="Abolfazl Fatahi" data-ar="أبوالفضل فتاحي" data-fr="Abolfazl Fatahi" data-zh="Abolfazl Fatahi" data-es="Abolfazl Fatahi">
+ابوالفضل فتاحی
+</strong>
+</div>
+
+<div class="info-item">
+<small data-fa="تولد" data-en="BIRTH" data-de="GEBURT" data-ar="تاريخ الميلاد" data-fr="NAISSANCE" data-zh="出生日期" data-es="NACIMIENTO">تولد</small>
+<strong data-fa="۱ شهریور ۱۳۸۹"
+data-en="23 August 2010" data-de="23. August 2010" data-ar="23 أغسطس 2010" data-fr="23 août 2010" data-zh="2010年8月23日" data-es="23 de agosto de 2010">
+۱ شهریور ۱۳۸۹
+</strong>
+</div>
+
+<div class="info-item">
+<small data-fa="محل تولد" data-en="BORN IN" data-de="GEBOREN IN" data-ar="مكان الميلاد" data-fr="NÉ À" data-zh="出生地" data-es="NACIDO EN">محل تولد</small>
+<strong data-fa="مشهد"
+data-en="Mashhad" data-de="Maschhad" data-ar="مشهد" data-fr="Machhad" data-zh="马什哈德" data-es="Mashhad">
+مشهد
+</strong>
+</div>
+
+<div class="info-item">
+<small data-fa="رشته" data-en="FIELD" data-de="FACHBEREICH" data-ar="التخصص" data-fr="DOMAINE" data-zh="专业" data-es="CAMPO">رشته</small>
+<strong data-fa="کامپیوتر"
+data-en="Computer" data-de="Informatik" data-ar="علوم الحاسوب" data-fr="Informatique" data-zh="计算机" data-es="Informática">
+کامپیوتر
+</strong>
+</div>
+
+<div class="info-item">
+<small data-fa="تمرکز" data-en="FOCUS" data-de="FOKUS" data-ar="التركيز" data-fr="FOCUS" data-zh="重点" data-es="ENFOQUE">تمرکز</small>
+<strong>AI / Code</strong>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section id="skills">
+
+<div class="wrap">
+
+<div class="section-head">
+
+<div>
+<div class="kicker">02 / INTERESTS</div>
+
+<h2 class="section-title"
+data-fa="علاقه‌مندی‌ها"
+data-en="Interests" data-de="Interessen" data-ar="اهتماماتي" data-fr="Intérêts" data-zh="兴趣" data-es="Intereses">
+علاقه‌مندی‌ها
+</h2>
+
+</div>
+
+<p class="section-desc"
+data-fa="سه حوزه‌ای که بیشترین کنجکاوی من را می‌سازند."
+data-en="Three areas that keep my curiosity switched on." data-de="Drei Bereiche, die meine Neugier antreiben." data-ar="ثلاثة مجالات تبقي فضولي متقدًا." data-fr="Trois domaines qui nourrissent ma curiosité." data-zh="三个持续激发我好奇心的领域。" data-es="Tres áreas que mantienen activa mi curiosidad.">
+سه حوزه‌ای که بیشترین کنجکاوی من را می‌سازند.
+</p>
+
+</div>
+
+<div class="cards">
+
+<article class="skill">
+
+<div class="skill-num">01</div>
+
+<h3 data-fa="هوش مصنوعی"
+data-en="Artificial Intelligence" data-de="KÜNSTLICHE INTELLIGENZ" data-ar="الذكاء الاصطناعي" data-fr="INTELLIGENCE ARTIFICIELLE" data-zh="人工智能" data-es="INTELIGENCIA ARTIFICIAL">
+هوش مصنوعی
+</h3>
+
+<p data-fa="کنجکاوی درباره مدل‌های هوشمند، ابزارهای AI و آینده فناوری."
+data-en="Curious about intelligent models, AI tools, and the future of technology." data-de="Neugierig auf intelligente Modelle, KI-Tools und die Zukunft der Technologie." data-ar="فضولي حول النماذج الذكية وأدوات الذكاء الاصطناعي ومستقبل التقنية." data-fr="Curieux des modèles intelligents, des outils d’IA et de l’avenir de la technologie." data-zh="探索智能模型、AI 工具和科技的未来。" data-es="Curiosidad por los modelos inteligentes, las herramientas de IA y el futuro de la tecnología.">
+کنجکاوی درباره مدل‌های هوشمند، ابزارهای AI و آینده فناوری.
+</p>
+
+<div class="skill-line"></div>
+
+</article>
+
+<article class="skill">
+
+<div class="skill-num">02</div>
+
+<h3 data-fa="برنامه‌نویسی"
+data-en="Programming" data-de="Programmierung" data-ar="البرمجة" data-fr="Programmation" data-zh="编程" data-es="Programación">
+برنامه‌نویسی
+</h3>
+
+<p data-fa="ساختن ایده‌ها با کد و تبدیل فکرهای ساده به چیزهای قابل استفاده."
+data-en="Turning ideas into code and simple thoughts into useful things."
+data-de="Ideen mit Code umsetzen und einfache Gedanken in nützliche Dinge verwandeln."
+data-ar="تحويل الأفكار إلى كود وتحويل الأفكار البسيطة إلى أشياء مفيدة."
+data-fr="Transformer des idées en code et des pensées simples en choses utiles."
+data-zh="用代码实现想法，把简单的思考变成有用的东西。"
+data-es="Convertir ideas en código y pensamientos simples en cosas útiles.">
+ساختن ایده‌ها با کد و تبدیل فکرهای ساده به چیزهای قابل استفاده.
+</p>
+
+<div class="skill-line"></div>
+
+</article>
+
+<article class="skill">
+
+<div class="skill-num">03</div>
+
+<h3 data-fa="تکنولوژی"
+data-en="Technology" data-de="Technologie" data-ar="التكنولوجيا" data-fr="Technologie" data-zh="科技" data-es="Tecnología">
+تکنولوژی
+</h3>
+
+<p data-fa="دنبال‌کردن ابزارها و اتفاق‌های تازه در دنیای کامپیوتر."
+data-en="Exploring new tools and what's happening across the world of computers." data-de="Neue Werkzeuge und Entwicklungen in der Computerwelt entdecken." data-ar="استكشاف الأدوات الجديدة وما يحدث في عالم الحاسوب." data-fr="Explorer les nouveaux outils et les évolutions du monde informatique." data-zh="探索新工具以及计算机世界的新动态。" data-es="Explorar nuevas herramientas y novedades del mundo de la informática.">
+دنبال‌کردن ابزارها و اتفاق‌های تازه در دنیای کامپیوتر.
+</p>
+
+<div class="skill-line"></div>
+
+</article>
+
+</div>
+
+</div>
+
+</section>
+
+<section id="projects">
+
+<div class="wrap">
+
+<div class="section-head">
+
+<div>
+<div class="kicker">03 / MY PATH</div>
+
+<h2 class="section-title"
+data-fa="مسیر من"
+data-en="My path" data-de="Mein Weg" data-ar="مساري" data-fr="Mon parcours" data-zh="我的道路" data-es="Mi camino">
+مسیر من
+</h2>
+
+</div>
+
+<p class="section-desc"
+data-fa="جایی برای رشد پروژه‌ها و تجربه‌های آینده."
+data-en="A space for future projects, experiments, and growth." data-de="Ein Raum für zukünftige Projekte, Experimente und Wachstum." data-ar="مساحة للمشاريع والتجارب والتطور في المستقبل." data-fr="Un espace pour les futurs projets, expériences et progrès." data-zh="为未来的项目、实验和成长留出空间。" data-es="Un espacio para futuros proyectos, experimentos y crecimiento.">
+جایی برای رشد پروژه‌ها و تجربه‌های آینده.
+</p>
+
+</div>
+
+<div class="projects">
+
+<div class="panel project-main">
+
+<div class="kicker">BUILD / LEARN / REPEAT</div>
+
+<h3 data-fa="پروژه‌ها به‌زودی اینجا قرار می‌گیرند."
+data-en="Projects are coming here soon." data-de="Projekte kommen bald hierher." data-ar="المشاريع ستظهر هنا قريبًا." data-fr="Les projets arriveront bientôt ici." data-zh="项目即将在这里展示。" data-es="Los proyectos llegarán aquí pronto.">
+پروژه‌ها به‌زودی اینجا قرار می‌گیرند.
+</h3>
+
+<p data-fa="این بخش برای نمایش پروژه‌های برنامه‌نویسی، تجربه‌های هوش مصنوعی و کارهایی است که در مسیر یادگیری ساخته می‌شوند."
+data-en="This space is for programming projects, AI experiments, and things built along the learning journey." data-de="Dieser Bereich zeigt Programmierprojekte, KI-Experimente und Arbeiten aus meinem Lernweg." data-ar="هذا القسم لعرض مشاريع البرمجة وتجارب الذكاء الاصطناعي وما يتم بناؤه خلال رحلة التعلم." data-fr="Cet espace présente des projets de programmation, des expériences d’IA et des créations réalisées au fil de l’apprentissage." data-zh="这里用于展示编程项目、AI 实验以及学习过程中完成的作品。" data-es="Este espacio muestra proyectos de programación, experimentos de IA y trabajos creados durante el aprendizaje.">
+این بخش برای نمایش پروژه‌های برنامه‌نویسی، تجربه‌های هوش مصنوعی و کارهایی است که در مسیر یادگیری ساخته می‌شوند.
+</p>
+
+<div class="code">
+const future = {
+ideas: "∞",
+code: true,
+learning: "always"
+};
+</div>
+
+</div>
+
+<div class="panel project-side">
+
+<div class="stat">
+<b>2010</b>
+<span data-fa="سال تولد"
+data-en="YEAR OF BIRTH" data-de="GEBURTSJAHR" data-ar="سنة الميلاد" data-fr="ANNÉE DE NAISSANCE" data-zh="出生年份" data-es="AÑO DE NACIMIENTO">
+سال تولد
+</span>
+</div>
+
+<div class="stat">
+<b>AI + Code</b>
+<span data-fa="تمرکز اصلی"
+data-en="MAIN FOCUS" data-de="HAUPTFOKUS" data-ar="التركيز الرئيسي" data-fr="OBJECTIF PRINCIPAL" data-zh="主要方向" data-es="ENFOQUE PRINCIPAL">
+تمرکز اصلی
+</span>
+</div>
+
+<div class="stat">
+<b>∞</b>
+<span data-fa="ایده برای ساختن"
+data-en="IDEAS TO BUILD" data-de="IDEEN ZUM BAUEN" data-ar="أفكار للبناء" data-fr="IDÉES À CRÉER" data-zh="待构建的想法" data-es="IDEAS PARA CREAR">
+ایده برای ساختن
+</span>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="contact" id="contact">
+<div class="wrap">
+<div class="section-head">
+<div>
+<div class="kicker">04 / CONNECT</div>
+<h2 class="section-title" data-fa="ارتباط با من" data-en="Connect with me" data-de="Kontakt" data-ar="تواصل معي" data-fr="Me contacter" data-zh="联系我" data-es="Contacto">ارتباط با من</h2>
+</div>
+<p class="section-desc" data-fa="شبکه‌های اجتماعی من، ساده، مستقیم و بدون شلوغی." data-en="My social spaces, simple, direct, and without the clutter." data-de="Meine sozialen Netzwerke, einfach, direkt und ohne Ballast." data-ar="مساحاتي الاجتماعية، بسيطة ومباشرة وبدون ازدحام." data-fr="Mes espaces sociaux, simples, directs et sans superflu." data-zh="我的社交空间，简单、直接、不杂乱。" data-es="Mis espacios sociales, simples, directos y sin complicaciones.">شبکه‌های اجتماعی من، ساده، مستقیم و بدون شلوغی.</p>
+</div>
+
+<div class="panel contact">
+<div class="contact-links">
+<a class="contact-link" href="https://www.linkedin.com/in/abolfazl-fatahi-ba9913435" target="_blank" rel="noopener noreferrer">
+<span class="contact-arrow">↗</span><small>LINKEDIN</small>
+</a>
+<a class="contact-link" href="https://github.com/abolfazlfatahi" target="_blank" rel="noopener noreferrer">
+<span class="contact-arrow">↗</span><small>GITHUB</small>
+</a>
+<a class="contact-link" href="https://www.instagram.com/abfory89" target="_blank" rel="noopener noreferrer">
+<span class="contact-arrow">↗</span><small>INSTAGRAM</small>
+</a>
+<a class="contact-link" href="https://www.youtube.com/@abolfazl89x" target="_blank" rel="noopener noreferrer">
+<span class="contact-arrow">↗</span><small>YOUTUBE</small>
+</a>
+<a class="contact-link" href="https://x.com/abolfazlfatahix" target="_blank" rel="noopener noreferrer">
+<span class="contact-arrow">↗</span><small>TWITTER (X)</small>
+</a>
+<a class="contact-link" href="https://t.me/abfory" target="_blank" rel="noopener noreferrer">
+<span class="contact-arrow">↗</span><small>TELEGRAM</small>
+</a>
+</div>
+</div>
+</div>
+</section>
+
+</main>
+
+
+<!-- AI CHAT -->
+<style>
+#aiChatFab{position:fixed;left:22px;bottom:22px;z-index:110;width:56px;height:56px;border:1px solid rgba(255,255,255,.14);border-radius:18px;background:rgba(15,19,27,.88);color:#fff;display:grid;place-items:center;cursor:pointer;box-shadow:0 16px 45px rgba(0,0,0,.38);backdrop-filter:blur(18px);transition:.25s}
+#aiChatFab:hover{transform:translateY(-3px);border-color:rgba(255,255,255,.28)}
+#aiChatPanel{position:fixed;left:22px;bottom:88px;z-index:109;width:min(390px,calc(100vw - 32px));height:min(560px,calc(100vh - 120px));display:none;flex-direction:column;overflow:hidden;border:1px solid rgba(255,255,255,.12);border-radius:22px;background:rgba(7,10,15,.96);box-shadow:0 28px 90px rgba(0,0,0,.55);backdrop-filter:blur(24px)}
+#aiChatPanel.open{display:flex}
+.ai-chat-head{height:64px;flex:0 0 64px;padding:0 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.08)}
+.ai-chat-title{display:flex;align-items:center;gap:10px}.ai-chat-logo{width:34px;height:34px;border-radius:10px;background:#f0f2f5;color:#080a0e;display:grid;place-items:center;font-size:10px;font-weight:900}.ai-chat-name{font-size:12px;font-weight:800;color:#fff}.ai-chat-status{font-size:8px;color:#687281;margin-top:2px;letter-spacing:1px}
+#aiChatClose{width:32px;height:32px;border:0;background:transparent;color:#8c96a5;font-size:22px;cursor:pointer;border-radius:9px}#aiChatClose:hover{background:rgba(255,255,255,.06);color:#fff}
+#aiChatMessages{flex:1;overflow:auto;padding:16px;display:flex;flex-direction:column;gap:10px}
+.ai-msg{max-width:86%;padding:10px 12px;border:1px solid rgba(255,255,255,.07);font-size:11px;line-height:1.9;white-space:pre-wrap;word-break:break-word}.ai-msg.bot{align-self:flex-start;border-radius:14px 14px 14px 4px;background:rgba(255,255,255,.035);color:#cbd1da}.ai-msg.user{align-self:flex-end;border-radius:14px 14px 4px 14px;background:rgba(240,242,245,.10);color:#f1f3f6}
+#aiChatForm{flex:0 0 auto;display:flex;gap:8px;padding:12px;border-top:1px solid rgba(255,255,255,.08)}#aiChatInput{min-width:0;flex:1;height:42px;border:1px solid rgba(255,255,255,.09);border-radius:12px;background:rgba(255,255,255,.04);color:#fff;padding:0 12px;outline:none;font:500 11px Vazirmatn}#aiChatInput:focus{border-color:rgba(255,255,255,.22)}#aiChatSend{width:44px;height:42px;border:0;border-radius:12px;background:#f0f2f5;color:#080a0e;font-size:17px;font-weight:900;cursor:pointer}#aiChatSend:disabled{opacity:.5;cursor:wait}
+@media(max-width:600px){#aiChatFab{left:16px;bottom:16px;width:52px;height:52px}#aiChatPanel{left:16px;bottom:78px;width:calc(100vw - 32px);height:min(560px,calc(100vh - 105px))}.focus-pill{bottom:16px;right:16px}}
+</style>
+
+<button id="aiChatFab" type="button" aria-label="AI Chat" aria-expanded="false">
+<svg width="23" height="23" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 6.5A3.5 3.5 0 0 1 8.5 3h7A3.5 3.5 0 0 1 19 6.5v5a3.5 3.5 0 0 1-3.5 3.5H12l-4.5 4v-4.1A3.5 3.5 0 0 1 5 11.5v-5Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M9 9h.01M12 9h.01M15 9h.01" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+</button>
+
+<div id="aiChatPanel" aria-hidden="true">
+  <div class="ai-chat-head">
+    <div class="ai-chat-title"><div class="ai-chat-logo">AI</div><div><div class="ai-chat-name">Abolfazl AI</div><div class="ai-chat-status">GEMINI ASSISTANT</div></div></div>
+    <button id="aiChatClose" type="button" aria-label="Close">×</button>
+  </div>
+  <div id="aiChatMessages">
+    <div class="ai-msg bot" data-fa="سلام 👋 من دستیار هوش مصنوعی سایت ابوالفضل هستم. هر چیزی خواستی بپرس."
+      data-en="Hi 👋 I'm the AI assistant on Abolfazl's website. Ask me anything."
+      data-de="Hallo 👋 Ich bin der KI-Assistent auf Abolfazls Website. Frag mich etwas."
+      data-ar="مرحبًا 👋 أنا المساعد الذكي في موقع أبوالفضل. اسألني ما تريد."
+      data-fr="Salut 👋 Je suis l’assistant IA du site d’Abolfazl. Pose-moi une question."
+      data-zh="你好 👋 我是 Abolfazl 网站上的 AI 助手。有什么想问的吗？"
+      data-es="Hola 👋 Soy el asistente de IA del sitio de Abolfazl. Pregúntame lo que quieras.">سلام 👋 من دستیار هوش مصنوعی سایت ابوالفضل هستم. هر چیزی خواستی بپرس.</div>
+  </div>
+  <form id="aiChatForm"><input id="aiChatInput" autocomplete="off" maxlength="2000" placeholder="پیامت رو بنویس..." /><button id="aiChatSend" type="submit" aria-label="Send">↗</button></form>
+</div>
+
+<footer>
+
+<span data-fa="© ابوالفضل فتاحی · ساخته‌شده با کد و کنجکاوی"
+data-en="© Abolfazl Fatahi · Built with code and curiosity" data-de="© Abolfazl Fatahi · Mit Code und Neugier gebaut" data-ar="© أبوالفضل فتاحي · بُني بالكود والفضول" data-fr="© Abolfazl Fatahi · Créé avec du code et de la curiosité" data-zh="© Abolfazl Fatahi · 用代码与好奇心构建" data-es="© Abolfazl Fatahi · Creado con código y curiosidad">
+© ابوالفضل فتاحی · ساخته‌شده با کد و کنجکاوی
+</span>
+
+</footer>
+
+<script>
+(function(){
+ const langWrap=document.getElementById('langWrap');
+ const langBtn=document.getElementById('langBtn');
+ const langOptions=document.querySelectorAll('.lang-option');
+ const focusText=document.getElementById('focusText');
+ let lang=localStorage.getItem('siteLang')||'fa';
+ const focusMessages={
+  fa:['در حال ساخت آینده','تمرکز روی AI','یک قدم جلوتر','کدنویسی با کنجکاوی'],
+  en:['BUILDING THE FUTURE','FOCUSED ON AI','ONE STEP AHEAD','CODE WITH CURIOSITY'],
+  de:['DIE ZUKUNFT GESTALTEN','FOKUS AUF KI','EINEN SCHRITT VORAUS','CODEN MIT NEUGIER'],
+  ar:['نبني المستقبل','التركيز على الذكاء الاصطناعي','خطوة إلى الأمام','البرمجة بفضول'],
+  fr:['CONSTRUIRE LE FUTUR','FOCUS SUR L’IA','UN PAS EN AVANT','CODER AVEC CURIOSITÉ'],
+  zh:['构建未来','专注于人工智能','领先一步','用好奇心编程'],
+  es:['CONSTRUYENDO EL FUTURO','ENFOCADOS EN IA','UN PASO ADELANTE','PROGRAMAR CON CURIOSIDAD']
+ };
+ let focusIndex=0;
+ function apply(){
+  document.documentElement.lang=lang;
+  document.documentElement.dir=lang==='fa'||lang==='ar'?'rtl':'ltr';
+  document.querySelectorAll('[data-fa]').forEach(el=>{
+   const value = el.dataset[lang] || el.dataset.en || el.dataset.fa || '';
+   el.textContent = value;
+  });
+  langOptions.forEach(option=>option.classList.toggle('active',option.dataset.lang===lang));
+  if(focusText) focusText.textContent=focusMessages[lang][focusIndex%focusMessages[lang].length];
+  const titles={fa:'ابوالفضل فتاحی | برنامه‌نویس',en:'Abolfazl Fatahi | Developer',de:'Abolfazl Fatahi | Entwickler',ar:'أبوالفضل فتاحي | مبرمج',fr:'Abolfazl Fatahi | Développeur',zh:'Abolfazl Fatahi | 开发者',es:'Abolfazl Fatahi | Desarrollador'};
+   document.title=titles[lang]||titles.en;
+ }
+ langBtn.addEventListener('click',function(e){
+  e.stopPropagation();
+  const open=langWrap.classList.toggle('open');
+  langBtn.setAttribute('aria-expanded',open?'true':'false');
+ });
+ langOptions.forEach(option=>option.addEventListener('click',function(){
+  lang=this.dataset.lang;
+  localStorage.setItem('siteLang',lang);
+  focusIndex=0;
+  apply();
+  langWrap.classList.remove('open');
+  langBtn.setAttribute('aria-expanded','false');
+ }));
+ document.addEventListener('click',function(e){
+  if(!langWrap.contains(e.target)){
+   langWrap.classList.remove('open');
+   langBtn.setAttribute('aria-expanded','false');
+  }
+ });
+ setInterval(function(){
+  focusIndex=(focusIndex+1)%focusMessages[lang].length;
+  if(focusText) focusText.textContent=focusMessages[lang][focusIndex];
+ },2800);
+ apply();
+})();
+</script>
+<script>
+(function(){
+ const fab=document.getElementById('aiChatFab'),panel=document.getElementById('aiChatPanel'),close=document.getElementById('aiChatClose'),form=document.getElementById('aiChatForm'),input=document.getElementById('aiChatInput'),messages=document.getElementById('aiChatMessages'),send=document.getElementById('aiChatSend');
+ if(!fab||!panel)return;
+ function openChat(){panel.classList.add('open');panel.setAttribute('aria-hidden','false');fab.setAttribute('aria-expanded','true');setTimeout(()=>input.focus(),80)}
+ function closeChat(){panel.classList.remove('open');panel.setAttribute('aria-hidden','true');fab.setAttribute('aria-expanded','false')}
+ fab.addEventListener('click',()=>panel.classList.contains('open')?closeChat():openChat()); close.addEventListener('click',closeChat);
+ function add(text,type){const el=document.createElement('div');el.className='ai-msg '+type;el.textContent=text;messages.appendChild(el);messages.scrollTop=messages.scrollHeight;return el}
+ form.addEventListener('submit',async e=>{e.preventDefault();const msg=input.value.trim();if(!msg||send.disabled)return;add(msg,'user');input.value='';send.disabled=true;const loading=add('…','bot');try{const r=await fetch('/.netlify/functions/gemini-chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:msg})});const data=await r.json().catch(()=>({}));loading.remove();if(!r.ok)throw new Error(data.error||'Request failed');add(data.reply||'پاسخی دریافت نشد.','bot')}catch(err){loading.remove();add('فعلاً اتصال به هوش مصنوعی برقرار نشد. تنظیمات Gemini در Netlify را بررسی کن.','bot');console.error(err)}finally{send.disabled=false;input.focus()}});
+})();
+</script>
+</body>
+</html>
